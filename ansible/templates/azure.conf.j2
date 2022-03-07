@@ -1,0 +1,21 @@
+conn azure
+        authby=secret
+        auto=start
+        dpdaction=restart
+        ike=aes256-sha1;dh2,3des-sha1;dh2,aes256-sha256;dh2
+        ikelifetime=28800s
+        ikev2=insist
+        encapsulation=yes
+        left=%defaultroute
+        leftid={{ on_premise_public_ip_address }}
+        leftnexthop=%defaultroute
+        leftsubnets={ {{ on_premise_private_network_range }} }
+        mtu=1350
+        pfs=no
+        phase2alg=aes_gcm256-null,aes256-sha1,3des-sha1,aes256-sha256
+        right={{ azure_vpn_public_ip }}
+        rightid={{ azure_vpn_public_ip }}
+        rightnexthop=%defaultroute
+        rightsubnets={ {{ vnet_main_address_space }} }
+        salifetime=27000s
+        type=tunnel

@@ -1,0 +1,20 @@
+- hosts:  localhost
+  tasks:
+  - name: Template a file to /etc/ipsec.d/azure.conf
+    template:
+      src: azure.conf.j2
+      dest: /etc/ipsec.d/azure.conf
+      owner: root
+      group: root
+      mode: '0600'
+  - name: Template a file to /etc/ipsec.d/azure.secrets
+    template:
+      src: azure.secrets.j2
+      dest: /etc/ipsec.d/azure.secrets
+      owner: root
+      group: root
+      mode: '0600'
+  - name: Restart IPSec Service
+    service:
+      name: ipsec
+      state: restarted

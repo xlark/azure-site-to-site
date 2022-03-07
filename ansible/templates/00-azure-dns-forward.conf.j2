@@ -1,0 +1,11 @@
+{% for zone in vnet_dns_reverse_zones %}
+server=/{{ zone }}/{{ azure_private_dns_server }} 
+{% endfor %}
+
+server=/{{ private_dns_zone_name }}/{{ azure_private_dns_server }} 
+
+{% for zone in on_premise_dns_zones %}
+server=/{{ zone }}/{{ on_premise_dns_server }} 
+{% endfor %}
+
+server={{ azure_private_dns_server }} 

@@ -1,0 +1,14 @@
+- hosts:  localhost
+  tasks:
+  - name: Remove /etc/ipsec.d/azure.conf
+    file:
+      path: /etc/ipsec.d/azure.conf
+      state: absent
+  - name: Remove /etc/ipsec.d/azure.secrets
+    file:
+      path: /etc/ipsec.d/azure.secrets
+      state: absent
+  - name: Restart IPSec Service
+    service:
+      name: ipsec
+      state: restarted

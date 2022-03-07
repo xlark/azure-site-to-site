@@ -1,0 +1,43 @@
+- hosts: all
+  user:  adminuser
+  become: yes
+  tasks:
+  - name: Replace nameserver entry until DNS masq up and running
+    lineinfile:
+      path: /etc/resolv.conf
+      regexp: '^nameserver'
+      line: "nameserver {{ azure_private_dns_server }}"
+      owner: root
+      group: root
+      mode: '0644'
+  - name: Install dnsmasq
+    yum:
+      name: dnsmasq
+      state: latest
+  - name: Install DNS Config
+    template:
+      src: 00-azure-dns-forward.conf.j2
+      dest:  /etc/dnsmasq.d/00-azure-dns-forward.conf
+      owner: root
+      group: root
+      mode: 0644
+  - name: Start and Enable dnsmasq
+    service:
+      name: dnsmasq
+      state: started
+      enabled: true
+  - name: Open up firewall for DNS
+    firewalld:
+      zone: public
+      service: dns
+      immediate: yes
+      permanent: yes
+      state: enabled
+  - name: Restore previous nameserver
+    lineinfile:
+      path: /etc/resolv.conf
+      regexp: '^nameserver'
+      line: "nameserver {{ dns_forwarder_ip }}"
+      owner: root
+      group: root
+      mode: '0644'

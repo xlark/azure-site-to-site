@@ -1,0 +1,47 @@
+# AZURE REGION TO DEPLOY TO
+azure_region_name="eastus"
+
+# Resource Group to create and place objects in
+resource_group_name="MYCO-EAST"
+
+# Default Resource Name.  Used when there is no need for a unique name
+default_resource_name="MYCO-EAST"
+
+# Address space for whole VNET
+vnet_address_space=["172.31.224.0/19"]
+
+# Private zone for VNET
+private_dns_zone_name="azure.private.example.com"
+
+# Subnet for VPN Gateway
+gateway_subnet=["172.31.224.0/24"]
+
+# Main subnet for VMs
+subnet_main_name = "MYCO-EAST-MAIN"
+subnet_main_cidr_ranges = ["172.31.225.0/24"]
+
+# Azure DNS Server Information
+# This is guaranteed static by Azure
+azure_private_dns_server = "168.63.129.16"
+
+# Assign static IP address for DNS Forwarder VM
+vnet_dns_servers=["172.31.225.4"]
+dns_forwarder_ip_address="172.31.225.4"
+
+# On Premise site information
+local_network_gateway_name="MYSITENAME"
+on_premise_name="MYSITENAME"
+on_premise_private_network_ranges=["172.31.0.0/19"]
+on_premise_public_ip_address="1.2.3.4"
+on_premise_dns_zones = ["private.example.com", "0.31.172.in-addr.arpa"]
+on_premise_dns_server = "172.31.0.101"
+vnet_dns_reverse_zones = ["225.31.172.in-addr.arpa"]
+
+# Name for public IP address used as Azure VPN endpoint.
+vpn_azure_public_ip_name="VPN-USEAST"
+
+# VPN Shared KEY
+# DO NOT COMMIT TO GIT!!!!!!!i
+#  IF USING FOR REAL, VAULT SOMEWHERE OTHER THAN GIT
+# DO NOT COMMIT TO GIT!!!!!!!i
+vpn_shared_key="BLAH-123"
